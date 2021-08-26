@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>JQuery Assignment</title>
+    <style>
+        .comments {
+            background-color: rgb(248, 149, 69);
+        }
+
+        .comment {
+            background-color: black;
+            color: coral;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 5px;
+            margin: 4px;
+            border-radius: 10px;
+        }
+
+        .comment:hover {
+            background-color: cornsilk;
+            color: rgb(240, 63, 32);
+            cursor: pointer;
+        }
+
+        button {
+            background-color: rgb(65, 240, 65);
+            color: white;
+            padding: 15px;
+            border: 1px solid greenyellow;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: white;
+            color: lawngreen;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        hr {
+            color: beige;
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="comments" style="border: 1px solid green;padding:1rem;margin-bottom: 0.5rem;">
+    </div>
+    <button id="load" onclick="loadData()">Load Data</button>
+
+
+    <script type="text/javascript">
+
+        loadData = () => {
+            $('document').ready(() => {
+                $.get("https://jsonplaceholder.typicode.com/posts", (res, status) => {
+                    let count = 0;
+                    showData(res, count);
+                });
+
+            })
+        }
+        showData = (res, count) => {
+            setTimeout(() => {
+                $(".comments").append(`<div class="comment">
+                    <h3>${res[count].title}</h3>
+                    <p>${res[count].body}</p>
+                    <hr>
+                </div>`);
+                count++;
+                showData(res, count);
+            }, 1000);
+        }
+
+    </script>
+</body>
+
+</html>
